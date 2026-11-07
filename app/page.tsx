@@ -15,7 +15,8 @@ import {
   BarChart3,
   Dumbbell,
   Award,
-  ChevronRight
+  ChevronRight,
+  LogIn
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -35,23 +36,23 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <a
-              href="/login"
-              className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2 rounded-xl border border-slate-700 transition-all flex items-center gap-1.5"
-            >
-              <Wrench className="w-3.5 h-3.5 text-orange-400" />
-              Painel do Leandro (Login)
-            </a>
-
+          <div className="flex items-center gap-2.5 sm:gap-3">
             <a
               href="https://wa.me/5521999995359?text=Olá%20Leandro,%20gostaria%20de%20um%20orçamento%20para%20manutenção%20da%20minha%20academia"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white text-xs font-extrabold px-4 py-2 rounded-xl shadow-lg shadow-orange-600/20 flex items-center gap-1.5 transition-all"
+              className="hidden sm:inline-flex bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2.5 rounded-xl border border-slate-700 transition-all items-center gap-1.5"
             >
-              <Phone className="w-3.5 h-3.5" />
-              Solicitar Contrato
+              <Phone className="w-3.5 h-3.5 text-emerald-400" />
+              <span>WhatsApp</span>
+            </a>
+
+            <a
+              href="/login"
+              className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white text-xs sm:text-sm font-black px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-lg shadow-orange-600/25 flex items-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <LogIn className="w-4 h-4 text-white" />
+              <span>Entrar no Sistema</span>
             </a>
           </div>
         </div>
@@ -84,21 +85,21 @@ export default function HomePage() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
               <a
-                href="https://wa.me/5521999995359?text=Olá%20Leandro,%20vi%20o%20site%20da%20Fazendo%20Esporte%20e%20quero%20conhecer%20os%20planos"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/login"
                 className="w-full sm:w-auto bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white font-black text-sm px-7 py-3.5 rounded-xl shadow-xl shadow-orange-600/25 flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5"
               >
-                <Phone className="w-4 h-4" />
-                Falar com Leandro Amélio
+                <LogIn className="w-4 h-4" />
+                Entrar no Sistema
               </a>
 
               <a
-                href="/login"
+                href="https://wa.me/5521999995359?text=Olá%20Leandro,%20vi%20o%20site%20da%20Fazendo%20Esporte%20e%20quero%20conhecer%20os%20planos"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm px-6 py-3.5 rounded-xl border border-slate-700 flex items-center justify-center gap-2 transition-all"
               >
-                <Wrench className="w-4 h-4 text-orange-400" />
-                Acessar Plataforma (Login)
+                <Phone className="w-4 h-4 text-emerald-400" />
+                Falar com Leandro Amélio
               </a>
             </div>
 

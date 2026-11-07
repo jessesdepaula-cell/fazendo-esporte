@@ -17,7 +17,8 @@ import {
   Wrench, 
   ShieldCheck,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  LogIn
 } from 'lucide-react';
 
 export default function QrReportPage() {
@@ -247,15 +248,24 @@ export default function QrReportPage() {
             </div>
           </div>
 
-          <a 
-            href="https://wa.me/5521999995359" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-full flex items-center gap-1 font-semibold"
-          >
-            <Phone className="w-3 h-3" />
-            Suporte
-          </a>
+          <div className="flex items-center gap-2">
+            <a 
+              href="/login" 
+              className="text-xs bg-purple-600 hover:bg-purple-500 text-white font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm transition-all"
+            >
+              <LogIn className="w-3.5 h-3.5" />
+              Entrar
+            </a>
+            <a 
+              href="https://wa.me/5521999995359" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-xs bg-slate-800 text-emerald-400 border border-emerald-500/30 px-2.5 py-1.5 rounded-lg flex items-center gap-1 font-semibold"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              Suporte
+            </a>
+          </div>
         </div>
       </header>
 
