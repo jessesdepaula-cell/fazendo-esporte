@@ -37,11 +37,11 @@ export default function HomePage() {
 
           <div className="flex items-center gap-3">
             <a
-              href="/admin"
+              href="/login"
               className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2 rounded-xl border border-slate-700 transition-all flex items-center gap-1.5"
             >
-              <Wrench className="w-3.5 h-3.5 text-purple-400" />
-              Painel do Leandro
+              <Wrench className="w-3.5 h-3.5 text-orange-400" />
+              Painel do Leandro (Login)
             </a>
 
             <a
@@ -64,14 +64,14 @@ export default function HomePage() {
           <div className="absolute top-1/3 right-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="max-w-5xl mx-auto text-center relative z-10">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-900/60 to-slate-800/80 border border-purple-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-purple-200 mb-6 shadow-sm">
-              <Sparkles className="w-3.5 h-3.5 text-orange-400" />
+            <div className="inline-flex items-center gap-2 bg-slate-900 border border-purple-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-purple-200 mb-6 shadow-sm">
+              <ShieldCheck className="w-3.5 h-3.5 text-orange-400" />
               Tecnologia Exclusiva de Chamados via QR Code &middot; SLA de 24 Horas
             </div>
 
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-6 tracking-tight">
-              A Pareceria Definitiva em <br />
-              <span className="bg-gradient-to-r from-orange-400 via-orange-300 to-purple-400 bg-clip-text text-transparent">
+              A Parceria Definitiva em <br />
+              <span className="text-orange-400">
                 Manutenção & Locação Fitness
               </span>
             </h1>
@@ -94,11 +94,11 @@ export default function HomePage() {
               </a>
 
               <a
-                href="/admin"
+                href="/login"
                 className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm px-6 py-3.5 rounded-xl border border-slate-700 flex items-center justify-center gap-2 transition-all"
               >
                 <Wrench className="w-4 h-4 text-orange-400" />
-                Acessar Plataforma
+                Acessar Plataforma (Login)
               </a>
             </div>
 

@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/navigation';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { Client } from '@/lib/types';
 import {
@@ -13,24 +12,54 @@ import {
   FileText,
   Globe,
   Building2,
-  Bell,
   Clock,
-  CheckCircle2,
-  ChevronRight,
   Menu,
   X,
   Phone,
-  ShieldAlert,
-  Plus
+  LogOut,
+  User,
+  ShieldCheck
 } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [clients, setClients] = useState<Client[]>([]);
   const [selectedClientSlug, setSelectedClientSlug] = useState<string>('todos');
   const [openTicketsCount, setOpenTicketsCount] = useState<number>(0);
   const [inProgressCount, setInProgressCount] = useState<number>(0);
+
+  // Authentication State
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [currentUserEmail, setCurrentUserEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function verifySession() {
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) {
+        router.push('/login');
+        return;
+      }
+      setCurrentUserEmail(data.session.user.email || 'Fazendoesporte2022@gmail.com');
+      setCheckingAuth(false);
+    }
+
+    verifySession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT' || !session) {
+        router.push('/login');
+      } else if (session) {
+        setCurrentUserEmail(session.user.email || 'Fazendoesporte2022@gmail.com');
+        setCheckingAuth(false);
+      }
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [router]);
 
   useEffect(() => {
     async function loadClientsAndStats() {
@@ -57,6 +86,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     loadClientsAndStats();
   }, []);
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    router.push('/login');
+  }
 
   const navItems = [
     {
@@ -90,6 +124,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
   ];
 
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-slate-100 p-4">
+        <div className="w-16 h-16 bg-white rounded-2xl p-1.5 shadow-xl flex items-center justify-center mb-4 animate-pulse">
+          <Image src="/logo.png" alt="Logo" width={52} height={52} className="object-contain" priority />
+        </div>
+        <div className="flex items-center gap-2 text-sm font-bold text-white mb-1">
+          <div className="w-3.5 h-3.5 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+          <span>Verificando Acesso Operacional...</span>
+        </div>
+        <p className="text-xs text-purple-400 font-medium">Fazendo Esporte &middot; Leandro Amélio</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col md:flex-row">
       {/* MOBILE TOPBAR */}
@@ -103,12 +152,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="text-[10px] text-purple-300">Painel do Leandro Amélio</div>
           </div>
         </div>
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
-        >
-          {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={handleSignOut}
+            title="Sair do painel"
+            className="p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-red-400"
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
+          >
+            {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* SIDEBAR */}
@@ -238,16 +296,34 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
         </div>
 
-        {/* SIDEBAR FOOTER */}
-        <div className="p-4 border-t border-slate-800 bg-slate-950/60 text-xs">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-emerald-400 font-bold text-[11px]">Sistema Online & Sincronizado</span>
+        {/* SIDEBAR FOOTER & USER PROFILE */}
+        <div className="p-3.5 border-t border-slate-800 bg-slate-950/70 text-xs">
+          <div className="flex items-center justify-between mb-2.5 bg-slate-900/90 p-2.5 rounded-xl border border-slate-800">
+            <div className="flex items-center gap-2.5 overflow-hidden">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-orange-500 text-white font-black text-xs flex items-center justify-center flex-shrink-0">
+                LA
+              </div>
+              <div className="truncate">
+                <div className="text-xs font-bold text-white truncate">Leandro Amélio</div>
+                <div className="text-[10px] text-purple-300 font-mono truncate">{currentUserEmail}</div>
+              </div>
+            </div>
+            <button
+              onClick={handleSignOut}
+              title="Sair do Sistema"
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-red-500/20 text-slate-400 hover:text-red-400 transition-colors ml-1"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
           </div>
-          <p className="text-[10px] text-slate-500">
-            Vibranium Aluguel de Equipamentos<br />
-            Suporte Técnico: (21) 99999-5359
-          </p>
+
+          <div className="flex items-center justify-between text-[10px] text-slate-400 px-1">
+            <div className="flex items-center gap-1.5">
+              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Sessão Ativa</span>
+            </div>
+            <span className="text-slate-500 font-mono">v1.2.0</span>
+          </div>
         </div>
       </aside>
 
