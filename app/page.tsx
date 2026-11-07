@@ -36,15 +36,15 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <a
               href="https://wa.me/5521999995359?text=Olá%20Leandro,%20gostaria%20de%20um%20orçamento%20para%20manutenção%20da%20minha%20academia"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2.5 rounded-xl border border-slate-700 transition-all items-center gap-1.5"
+              className="hidden sm:inline-flex bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2.5 rounded-xl border border-slate-700 transition-all items-center gap-2"
             >
               <Phone className="w-3.5 h-3.5 text-emerald-400" />
-              <span>WhatsApp</span>
+              <span>(21) 99999-5359</span>
             </a>
 
             <a
@@ -99,7 +99,7 @@ export default function HomePage() {
                 className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm px-6 py-3.5 rounded-xl border border-slate-700 flex items-center justify-center gap-2 transition-all"
               >
                 <Phone className="w-4 h-4 text-emerald-400" />
-                Falar com Leandro Amélio
+                WhatsApp: (21) 99999-5359
               </a>
             </div>
 

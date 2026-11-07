@@ -354,7 +354,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 transition-all shadow-xs"
             >
               <Phone className="w-3.5 h-3.5" />
-              WhatsApp Leandro
+              WhatsApp: (21) 99999-5359
             </a>
           </div>
         </header>
