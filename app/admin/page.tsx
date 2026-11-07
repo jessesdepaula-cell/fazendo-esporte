@@ -314,7 +314,7 @@ export default function KanbanPage() {
 
                     {/* DESCRIPTION */}
                     <p className="text-xs text-slate-600 bg-slate-50 border border-slate-100 rounded-lg p-2.5 mb-3 leading-relaxed">
-                      "{ticket.description}"
+                      &ldquo;{ticket.description}&rdquo;
                     </p>
 
                     {/* PHOTO THUMBNAIL IF PRESENT */}
@@ -420,7 +420,7 @@ export default function KanbanPage() {
                   </h3>
 
                   <p className="text-xs text-slate-600 bg-slate-50 p-2 rounded-lg mb-3">
-                    "{ticket.description}"
+                    &ldquo;{ticket.description}&rdquo;
                   </p>
 
                   <div className="text-[11px] text-slate-500 mb-3 space-y-1">
@@ -494,7 +494,7 @@ export default function KanbanPage() {
                   </h3>
 
                   <p className="text-xs text-slate-500 mb-2">
-                    Defeito resolvido: "{ticket.description}"
+                    Defeito resolvido: &ldquo;{ticket.description}&rdquo;
                   </p>
 
                   <div className="pt-2 border-t border-slate-100 text-[11px] text-slate-400 flex justify-between items-center">
