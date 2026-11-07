@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { Machine, Client } from '@/lib/types';
-import { generateQrDataUrl } from '@/lib/qr';
+import { generateQrDataUrl, generateQrBadgePng } from '@/lib/qr';
 import {
   Wrench,
   QrCode,
@@ -15,7 +15,8 @@ import {
   CheckCircle2,
   AlertTriangle,
   Clock,
-  Printer
+  Printer,
+  Sparkles
 } from 'lucide-react';
 
 export default function MachinesPage() {
@@ -27,6 +28,44 @@ export default function MachinesPage() {
   const [loading, setLoading] = useState(true);
   const [qrMap, setQrMap] = useState<Record<string, string>>({});
   const [selectedMachineQr, setSelectedMachineQr] = useState<Machine | null>(null);
+  const [downloadingBadge, setDownloadingBadge] = useState<string | null>(null);
+
+  const handleDownloadBadge = async (m: Machine, fullBadge = true) => {
+    try {
+      setDownloadingBadge(m.id);
+      const rawQr = qrMap[m.id];
+      if (!rawQr) return;
+
+      let urlToDownload = rawQr;
+      let filename = `qrcode_${m.code}.png`;
+
+      if (fullBadge) {
+        urlToDownload = await generateQrBadgePng({
+          qrDataUrl: rawQr,
+          companyName: 'FAZENDO ESPORTE',
+          companySubtitle: 'Vibranium Aluguel de Equipamentos',
+          clientName: m.client?.name || 'Condomínio Varandas do Atlântico',
+          machineName: m.name,
+          machineCode: m.code,
+          category: m.category,
+          phone: '(21) 99999-5359'
+        });
+        const safeName = m.name.replace(/[^a-zA-Z0-9_-]/g, '_');
+        filename = `Adesivo_QR_${m.code}_${safeName}.png`;
+      }
+
+      const a = document.createElement('a');
+      a.href = urlToDownload;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('Error generating badge:', err);
+    } finally {
+      setDownloadingBadge(null);
+    }
+  };
 
   useEffect(() => {
     async function loadData() {
@@ -204,10 +243,20 @@ export default function MachinesPage() {
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
                 <button
                   onClick={() => setSelectedMachineQr(m)}
-                  className="bg-purple-50 hover:bg-purple-100 text-purple-800 text-xs font-bold px-3 py-2 rounded-xl border border-purple-200 flex items-center gap-1.5 transition-all flex-1 justify-center"
+                  className="bg-purple-50 hover:bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-2 rounded-xl border border-purple-200 flex items-center gap-1.5 transition-all flex-1 justify-center"
                 >
                   <QrCode className="w-3.5 h-3.5" />
-                  Ver QR Code
+                  Ver QR
+                </button>
+
+                <button
+                  onClick={() => handleDownloadBadge(m, true)}
+                  disabled={downloadingBadge === m.id}
+                  className="bg-orange-50 hover:bg-orange-100 text-orange-800 text-xs font-bold px-2.5 py-2 rounded-xl border border-orange-200 flex items-center gap-1.5 transition-all flex-1 justify-center disabled:opacity-50"
+                  title="Baixar Etiqueta Adesiva Completa (Empresa + Máquina + QR)"
+                >
+                  <Download className={`w-3.5 h-3.5 ${downloadingBadge === m.id ? 'animate-bounce' : ''}`} />
+                  {downloadingBadge === m.id ? 'Gerando...' : 'Baixar Adesivo'}
                 </button>
 
                 <a
@@ -270,22 +319,34 @@ export default function MachinesPage() {
               Aponte a câmera do celular para este QR Code para testar a abertura do chamado de manutenção.
             </p>
 
-            <div className="flex gap-2">
-              <a
-                href={qrMap[selectedMachineQr.id]}
-                download={`qrcode_${selectedMachineQr.code}.png`}
-                className="flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-xs"
-              >
-                <Download className="w-3.5 h-3.5" />
-                Baixar Imagem
-              </a>
-
+            <div className="space-y-2">
               <button
-                onClick={() => setSelectedMachineQr(null)}
-                className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs py-2.5 px-4 rounded-xl"
+                onClick={() => handleDownloadBadge(selectedMachineQr, true)}
+                disabled={downloadingBadge === selectedMachineQr.id}
+                className="w-full bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white font-extrabold text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all disabled:opacity-50"
               >
-                Fechar
+                <Download className={`w-4 h-4 ${downloadingBadge === selectedMachineQr.id ? 'animate-bounce' : ''}`} />
+                {downloadingBadge === selectedMachineQr.id 
+                  ? 'Gerando Etiqueta com Empresa e Modelo...' 
+                  : 'Baixar Etiqueta Completa (Empresa + Modelo)'}
               </button>
+
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleDownloadBadge(selectedMachineQr, false)}
+                  className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5"
+                >
+                  <QrCode className="w-3.5 h-3.5" />
+                  Apenas QR Code
+                </button>
+
+                <button
+                  onClick={() => setSelectedMachineQr(null)}
+                  className="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs py-2.5 px-4 rounded-xl"
+                >
+                  Fechar
+                </button>
+              </div>
             </div>
           </div>
         </div>

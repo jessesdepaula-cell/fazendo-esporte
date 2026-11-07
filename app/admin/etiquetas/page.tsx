@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import { Machine, Client } from '@/lib/types';
-import { generateQrDataUrl } from '@/lib/qr';
-import { Printer, Building2, QrCode, Sparkles, Check, ArrowLeft } from 'lucide-react';
+import { generateQrDataUrl, generateQrBadgePng } from '@/lib/qr';
+import { Printer, Building2, QrCode, Sparkles, Check, ArrowLeft, Download } from 'lucide-react';
 
 export default function EtiquetasPage() {
   const [machines, setMachines] = useState<Machine[]>([]);
@@ -55,6 +55,30 @@ export default function EtiquetasPage() {
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleDownloadBadge = async (m: Machine) => {
+    const rawQr = qrMap[m.id];
+    if (!rawQr) return;
+
+    const badgeDataUrl = await generateQrBadgePng({
+      qrDataUrl: rawQr,
+      companyName: 'FAZENDO ESPORTE',
+      companySubtitle: 'Vibranium Aluguel de Equipamentos',
+      clientName: m.client?.name || currentClient?.name || 'Condomínio Varandas do Atlântico',
+      machineName: m.name,
+      machineCode: m.code,
+      category: m.category,
+      phone: '(21) 99999-5359'
+    });
+
+    const safeName = m.name.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const a = document.createElement('a');
+    a.href = badgeDataUrl;
+    a.download = `Adesivo_QR_${m.code}_${safeName}.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
@@ -164,6 +188,16 @@ export default function EtiquetasPage() {
                 <div className="text-[9px] text-purple-800 font-bold mt-1.5">
                   Atendimento em até 24h &middot; (21) 99999-5359
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleDownloadBadge(m)}
+                  className="print:hidden mt-2 text-[10px] bg-purple-100 hover:bg-purple-200 text-purple-900 font-bold px-2 py-1 rounded-md flex items-center gap-1 transition-all"
+                  title="Baixar imagem individual desta etiqueta com o nome da empresa e modelo"
+                >
+                  <Download className="w-3 h-3 text-orange-600" />
+                  Baixar PNG
+                </button>
               </div>
 
               {/* QR CODE BOX */}
