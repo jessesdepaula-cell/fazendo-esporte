@@ -94,9 +94,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const navItems = [
     {
-      label: 'Painel Kanban & SLA',
-      href: '/admin',
+      label: 'Dashboard (Visão Geral)',
+      href: '/admin/dashboard',
       icon: LayoutDashboard,
+      badge: 'Geral',
+      badgeColor: 'bg-purple-900/60 text-purple-200 border border-purple-500/30'
+    },
+    {
+      label: 'Quadro Kanban (SLA 24h)',
+      href: '/admin',
+      icon: Clock,
       badge: openTicketsCount > 0 ? `${openTicketsCount} A Fazer` : undefined,
       badgeColor: 'bg-orange-500 text-white'
     },
@@ -104,6 +111,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       label: 'Parque de Máquinas',
       href: '/admin/maquinas',
       icon: Wrench,
+      badge: '21 máq.',
+      badgeColor: 'bg-slate-800 text-slate-300'
     },
     {
       label: 'Gerador de Etiquetas QR',
@@ -116,6 +125,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       label: 'Relatórios Executivos',
       href: '/admin/relatorios',
       icon: FileText,
+      badge: 'PDF',
+      badgeColor: 'bg-emerald-500/20 text-emerald-400'
     },
     {
       label: 'Ver Site Institucional',
@@ -212,61 +223,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
           </div>
 
-          {/* CLIENTS FILTER SECTION */}
-          <div className="mb-5">
-            <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
-              <span>Filtrar por Cliente</span>
-              <Building2 className="w-3.5 h-3.5 text-purple-400" />
-            </div>
-
-            <div className="space-y-1">
-              <button
-                onClick={() => {
-                  setSelectedClientSlug('todos');
-                  if (typeof window !== 'undefined') {
-                    window.dispatchEvent(new CustomEvent('filter-client', { detail: 'todos' }));
-                  }
-                }}
-                className={`w-full text-left px-3 py-2 rounded-lg text-xs font-semibold flex items-center justify-between transition-all ${
-                  selectedClientSlug === 'todos'
-                    ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
-                    : 'hover:bg-slate-800/80 text-slate-400'
-                }`}
-              >
-                <span>🏢 Todos os Clientes</span>
-                <span className="text-[10px] bg-slate-800/60 text-slate-300 px-1.5 py-0.5 rounded">
-                  Geral
-                </span>
-              </button>
-
-              {clients.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => {
-                    setSelectedClientSlug(c.slug);
-                    if (typeof window !== 'undefined') {
-                      window.dispatchEvent(new CustomEvent('filter-client', { detail: c.id }));
-                    }
-                  }}
-                  className={`w-full text-left px-3 py-2 rounded-lg text-xs font-semibold flex items-center justify-between transition-all ${
-                    selectedClientSlug === c.slug
-                      ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
-                      : 'hover:bg-slate-800/80 text-slate-300'
-                  }`}
-                >
-                  <span className="truncate pr-2">{c.name}</span>
-                  <span className="text-[10px] bg-orange-500/20 text-orange-300 border border-orange-500/30 px-1.5 py-0.5 rounded flex-shrink-0">
-                    21 máq.
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* MAIN NAVIGATION */}
           <div className="space-y-1">
             <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
-              Navegação
+              Módulos do Sistema
             </div>
             {navItems.map((item) => {
               const active = pathname === item.href;
@@ -331,14 +291,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* TOP STATUS BAR */}
         <header className="hidden md:flex bg-white border-b border-slate-200 px-6 py-3.5 items-center justify-between shadow-xs">
-          <div className="flex items-center gap-3">
-            <div className="text-xs text-slate-500">
-              Visualizando:
-            </div>
-            <div className="bg-purple-50 text-purple-900 border border-purple-200 text-xs font-bold px-3 py-1 rounded-lg flex items-center gap-2">
-              <Building2 className="w-3.5 h-3.5 text-purple-600" />
-              {selectedClientSlug === 'todos' ? 'Todos os Clientes' : 'Condomínio Varandas do Atlântico'}
-            </div>
+          <div className="flex items-center gap-2.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs font-black text-slate-800 tracking-wide uppercase">
+              Fazendo Esporte &middot; Central de Gestão & Manutenção
+            </span>
+            <span className="text-[10px] bg-purple-100 text-purple-800 font-extrabold px-2 py-0.5 rounded-full border border-purple-200">
+              SLA 24H Ativo
+            </span>
           </div>
 
           <div className="flex items-center gap-3">

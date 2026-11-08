@@ -30,6 +30,8 @@ export default function KanbanPage() {
   const [loading, setLoading] = useState(true);
   const [filterClientId, setFilterClientId] = useState<string>('todos');
   const [filterTime, setFilterTime] = useState<string>('todos');
+  const [customStartDate, setCustomStartDate] = useState<string>('');
+  const [customEndDate, setCustomEndDate] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [notificationToast, setNotificationToast] = useState<{ message: string; type: 'info' | 'success' } | null>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
@@ -186,6 +188,16 @@ export default function KanbanPage() {
         const deadline = new Date(t.sla_deadline).getTime();
         const remainingHours = (deadline - now) / (1000 * 3600);
         if (remainingHours > 4) return false;
+      } else if (filterTime === 'personalizado') {
+        const ticketDate = new Date(t.created_at);
+        if (customStartDate) {
+          const start = new Date(`${customStartDate}T00:00:00`);
+          if (ticketDate < start) return false;
+        }
+        if (customEndDate) {
+          const end = new Date(`${customEndDate}T23:59:59`);
+          if (ticketDate > end) return false;
+        }
       }
     }
 
@@ -350,9 +362,50 @@ export default function KanbanPage() {
                   <option value="7d">Últimos 7 Dias</option>
                   <option value="30d">Últimos 30 Dias (Mês)</option>
                   <option value="urgente">🔥 SLA Urgente (&lt; 4h)</option>
+                  <option value="personalizado">📅 Tempo Personalizado (Datas)...</option>
                 </select>
               </div>
             </div>
+
+            {/* SELEÇÃO DE DATAS PERSONALIZADAS */}
+            {filterTime === 'personalizado' && (
+              <div className="flex items-center gap-2 bg-orange-50/90 border border-orange-300 rounded-xl px-3 py-1.5 shadow-xs">
+                <Calendar className="w-3.5 h-3.5 text-orange-600 flex-shrink-0" />
+                <div className="flex items-center gap-2 text-xs">
+                  <div className="flex items-center gap-1">
+                    <span className="text-[10px] font-extrabold text-orange-900 uppercase">De:</span>
+                    <input
+                      type="date"
+                      value={customStartDate}
+                      onChange={(e) => setCustomStartDate(e.target.value)}
+                      className="bg-white border border-orange-200 rounded-lg px-2 py-1 text-xs text-slate-900 font-semibold focus:outline-none focus:ring-1 focus:ring-orange-500 shadow-2xs"
+                    />
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-[10px] font-extrabold text-orange-900 uppercase">Até:</span>
+                    <input
+                      type="date"
+                      value={customEndDate}
+                      onChange={(e) => setCustomEndDate(e.target.value)}
+                      className="bg-white border border-orange-200 rounded-lg px-2 py-1 text-xs text-slate-900 font-semibold focus:outline-none focus:ring-1 focus:ring-orange-500 shadow-2xs"
+                    />
+                  </div>
+                  {(customStartDate || customEndDate) && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCustomStartDate('');
+                        setCustomEndDate('');
+                      }}
+                      className="text-orange-600 hover:text-orange-800 p-1 hover:bg-orange-100 rounded"
+                      title="Limpar intervalo de datas"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* BUSCA RÁPIDA (MÁQUINA OU SOLICITANTE) */}
             <div className="relative flex items-center">
