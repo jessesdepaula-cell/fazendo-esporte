@@ -194,9 +194,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="h-screen w-full overflow-hidden bg-slate-100 flex flex-col md:flex-row">
+    <div className="h-screen w-full overflow-hidden bg-slate-100 flex flex-col md:flex-row print:h-auto print:overflow-visible print:bg-white">
       {/* MOBILE TOPBAR */}
-      <div className="md:hidden bg-slate-900 border-b border-purple-500/20 text-white px-4 py-3 flex items-center justify-between flex-shrink-0 z-50">
+      <div className="md:hidden print:hidden bg-slate-900 border-b border-purple-500/20 text-white px-4 py-3 flex items-center justify-between flex-shrink-0 z-50">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 bg-white rounded-lg p-0.5 flex items-center justify-center">
             <Image src="/logo.png" alt="Logo" width={28} height={28} className="object-contain" />
@@ -233,6 +233,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* SIDEBAR (FIXED VIEWPORT HEIGHT - NEVER ROLLS OFF SCREEN) */}
       <aside className={`
+        print:hidden
         fixed md:relative inset-y-0 left-0 z-40
         w-72 h-full bg-slate-900 border-r border-slate-800 text-slate-300 flex flex-col justify-between flex-shrink-0
         transform transition-transform duration-300 ease-in-out
@@ -339,9 +340,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* MAIN CONTENT AREA (INDEPENDENT RIGHT-SIDE SCROLL) */}
-      <main className="flex-1 flex flex-col min-w-0 h-full overflow-y-auto bg-slate-100">
+      <main className="flex-1 flex flex-col min-w-0 h-full overflow-y-auto bg-slate-100 print:bg-white print:overflow-visible print:h-auto print:p-0">
         {/* TOP STATUS BAR */}
-        <header className="hidden md:flex bg-white border-b border-slate-200 px-6 py-3.5 items-center justify-between shadow-xs sticky top-0 z-20 flex-shrink-0">
+        <header className="print:hidden hidden md:flex bg-white border-b border-slate-200 px-6 py-3.5 items-center justify-between shadow-xs sticky top-0 z-20 flex-shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-xs font-black text-slate-800 tracking-wide uppercase">
@@ -371,7 +372,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </header>
 
         {/* PAGE CONTENT */}
-        <div className="p-4 md:p-6 flex-1">
+        <div className="p-4 md:p-6 flex-1 print:p-0">
           {children}
         </div>
       </main>

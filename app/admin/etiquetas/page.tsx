@@ -71,14 +71,14 @@ export default function EtiquetasPage() {
     setPrintMode('completo');
     setTimeout(() => {
       window.print();
-    }, 150);
+    }, 250);
   };
 
   const handlePrintQrOnly = () => {
     setPrintMode('minimalista');
     setTimeout(() => {
       window.print();
-    }, 150);
+    }, 250);
   };
 
   const handleDownloadBadge = async (m: Machine) => {
@@ -204,7 +204,7 @@ export default function EtiquetasPage() {
         @media print {
           @page {
             size: A4 portrait;
-            margin: 6mm 8mm;
+            margin: 5mm 6mm;
           }
           body {
             background: #ffffff !important;
@@ -234,16 +234,16 @@ export default function EtiquetasPage() {
             break-after: auto;
           }
           .label-card-full {
-            height: 52mm !important;
-            max-height: 52mm !important;
+            height: 48mm !important;
+            max-height: 48mm !important;
             overflow: hidden !important;
             box-sizing: border-box !important;
             page-break-inside: avoid !important;
             break-inside: avoid !important;
           }
           .label-card-minimal {
-            height: 52mm !important;
-            max-height: 52mm !important;
+            height: 48mm !important;
+            max-height: 48mm !important;
             overflow: hidden !important;
             box-sizing: border-box !important;
             page-break-inside: avoid !important;
@@ -259,69 +259,53 @@ export default function EtiquetasPage() {
             key={pageIndex}
             className="a4-sheet bg-white p-6 rounded-2xl border border-slate-200 shadow-sm print:p-0 print:border-none print:shadow-none"
           >
-            {/* SHEET HEADER */}
-            <div className="flex items-center justify-between pb-2 mb-2 border-b-2 border-purple-900 text-xs">
-              <div className="flex items-center gap-2">
-                <img src="/logo.png" alt="Logo" className="w-6 h-6 object-contain" />
-                <span className="font-black text-slate-900 tracking-wide">
-                  FAZENDO ESPORTE &middot; SFE
-                </span>
-                <span className="text-[10px] text-slate-500 font-medium">
-                  {currentClient?.name || 'Todas as Unidades'}
-                </span>
+            {/* SHEET HEADER: APENAS NO MODO COMPLETO (No modo minimalista de só QR Code, não precisa de cabeçalho) */}
+            {printMode === 'completo' && (
+              <div className="flex items-center justify-between pb-1.5 mb-2 border-b-2 border-purple-900 text-xs flex-shrink-0">
+                <div className="flex items-center gap-2">
+                  <img src="/logo.png" alt="Logo" className="w-5 h-5 object-contain" />
+                  <span className="font-black text-slate-900 tracking-wide text-xs">
+                    FAZENDO ESPORTE &middot; SFE
+                  </span>
+                  <span className="text-[10px] text-slate-500 font-medium">
+                    {currentClient?.name || 'Todas as Unidades'}
+                  </span>
+                </div>
+                <div className="text-[10px] text-slate-500 flex items-center gap-3">
+                  <span>Página <strong>{pageIndex + 1}</strong> de <strong>{pages.length}</strong></span>
+                  <span className="font-bold text-orange-600">SLA 48 Horas</span>
+                </div>
               </div>
-              <div className="text-[10px] text-slate-500 flex items-center gap-3">
-                <span>Página <strong>{pageIndex + 1}</strong> de <strong>{pages.length}</strong></span>
-                <span className="font-bold text-orange-600">SLA 48 Horas</span>
-              </div>
-            </div>
+            )}
 
             {/* 10 LABELS GRID (2 COLUMNS X 5 ROWS) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 print:grid-cols-2 print:gap-2">
+            <div className={`grid grid-cols-1 md:grid-cols-2 print:grid-cols-2 ${
+              printMode === 'minimalista'
+                ? 'gap-3 print:gap-2 my-auto'
+                : 'gap-2.5 print:gap-1.5'
+            }`}>
               {pageMachines.map((m) => {
                 if (printMode === 'minimalista') {
-                  // ================= MODO MINIMALISTA: SOMENTE QR CODE + CÓDIGO =================
+                  // ================= MODO MINIMALISTA: ESTRITAMENTE O QR CODE + CÓDIGO ABAIXO =================
                   return (
                     <div
                       key={m.id}
-                      className="label-card-minimal border-2 border-slate-900 rounded-xl p-2.5 bg-white flex items-center justify-between gap-3 shadow-xs print:shadow-none"
+                      className="label-card-minimal border-2 border-slate-300 print:border-slate-400 rounded-2xl p-2 bg-white flex flex-col items-center justify-center shadow-xs print:shadow-none mx-auto w-full max-w-[90mm]"
                     >
-                      {/* TEXT INFO */}
-                      <div className="flex-1 min-w-0 pr-1">
-                        <div className="text-[9px] font-black uppercase text-purple-900 tracking-wider mb-0.5">
-                          FAZENDO ESPORTE &middot; SFE
+                      {qrMap[m.id] ? (
+                        <img
+                          src={qrMap[m.id]}
+                          alt={`QR ${m.code}`}
+                          className="w-24 h-24 print:w-[35mm] print:h-[35mm] object-contain"
+                        />
+                      ) : (
+                        <div className="w-24 h-24 print:w-[35mm] print:h-[35mm] flex items-center justify-center text-[10px] text-slate-400">
+                          Carregando...
                         </div>
-                        <h3 className="text-xs font-black text-slate-900 leading-tight mb-1 truncate">
-                          {m.name}
-                        </h3>
-                        <div className="text-[9px] text-slate-500 truncate mb-1">
-                          {m.client?.name}
-                        </div>
-                        <div className="inline-block bg-slate-900 text-white font-mono text-xs font-black px-2 py-0.5 rounded mb-1">
-                          {m.code}
-                        </div>
-                        <div className="text-[8px] text-slate-500 leading-none">
-                          Suporte WhatsApp: (21) 99999-5359
-                        </div>
-                      </div>
-
-                      {/* BIG QR CODE WITH CODE UNDERNEATH */}
-                      <div className="flex flex-col items-center justify-center flex-shrink-0 bg-slate-50 p-1.5 rounded-lg border border-slate-300">
-                        {qrMap[m.id] ? (
-                          <img
-                            src={qrMap[m.id]}
-                            alt={`QR ${m.code}`}
-                            className="w-20 h-20 object-contain"
-                          />
-                        ) : (
-                          <div className="w-20 h-20 flex items-center justify-center text-[9px] text-slate-400">
-                            ...
-                          </div>
-                        )}
-                        <span className="text-[10px] font-mono font-black text-slate-900 mt-0.5 tracking-wider">
-                          {m.code}
-                        </span>
-                      </div>
+                      )}
+                      <span className="text-xs md:text-sm print:text-[12pt] font-mono font-black text-slate-900 mt-0.5 tracking-wider text-center">
+                        {m.code}
+                      </span>
                     </div>
                   );
                 }
@@ -330,26 +314,26 @@ export default function EtiquetasPage() {
                 return (
                   <div
                     key={m.id}
-                    className="label-card-full border-2 border-purple-900 rounded-xl p-2.5 bg-gradient-to-br from-white to-purple-50/20 flex items-center justify-between gap-2.5 shadow-xs print:shadow-none"
+                    className="label-card-full border-2 border-purple-900 rounded-xl p-2 bg-gradient-to-br from-white to-purple-50/20 flex items-center justify-between gap-2 shadow-xs print:shadow-none"
                   >
-                    <div className="flex-1 min-w-0 pr-1">
+                    <div className="flex-1 min-w-0 pr-1 flex flex-col justify-between h-full">
                       {/* BRAND HEADER */}
-                      <div className="flex items-center gap-1 mb-0.5 text-[9px] font-black text-purple-900 uppercase tracking-wider">
+                      <div className="flex items-center gap-1 text-[8.5px] font-black text-purple-900 uppercase tracking-wider">
                         <span className="w-1.5 h-1.5 rounded-full bg-orange-500 inline-block" />
                         FAZENDO ESPORTE &middot; SFE
                       </div>
 
-                      <div className="text-[9px] text-slate-500 truncate leading-tight">
+                      <div className="text-[8.5px] text-slate-500 truncate leading-tight">
                         {m.client?.name}
                       </div>
 
                       {/* MACHINE NAME */}
-                      <h3 className="text-[11px] font-black text-slate-900 my-0.5 leading-tight truncate">
+                      <h3 className="text-[10px] font-black text-slate-900 leading-tight truncate my-0.5">
                         {m.name}
                       </h3>
 
-                      <div className="flex items-center gap-1.5 my-1">
-                        <span className="bg-purple-900 text-white font-mono text-[9px] font-extrabold px-1.5 py-0.2 rounded">
+                      <div className="flex items-center gap-1.5">
+                        <span className="bg-purple-900 text-white font-mono text-[8.5px] font-extrabold px-1.5 py-0.2 rounded">
                           {m.code}
                         </span>
                         <span className="text-[8px] text-slate-500 truncate">
@@ -358,23 +342,13 @@ export default function EtiquetasPage() {
                       </div>
 
                       {/* CALL TO ACTION */}
-                      <div className="bg-orange-500 text-white text-[8px] font-black uppercase px-1.5 py-0.5 rounded tracking-tight inline-block">
+                      <div className="bg-orange-500 text-white text-[7.5px] font-black uppercase px-1.5 py-0.5 rounded tracking-tight inline-block w-fit mt-0.5">
                         📲 Escaneie o QR p/ abrir chamado
                       </div>
 
-                      <div className="text-[8px] text-purple-900 font-bold mt-1">
+                      <div className="text-[7.5px] text-purple-900 font-bold">
                         SLA até 48h &middot; (21) 99999-5359
                       </div>
-
-                      <button
-                        type="button"
-                        onClick={() => handleDownloadBadge(m)}
-                        className="print:hidden mt-1 text-[9px] bg-purple-100 hover:bg-purple-200 text-purple-900 font-bold px-1.5 py-0.5 rounded flex items-center gap-1 transition-all"
-                        title="Baixar imagem individual"
-                      >
-                        <Download className="w-2.5 h-2.5 text-orange-600" />
-                        Baixar PNG
-                      </button>
                     </div>
 
                     {/* QR CODE BOX */}
@@ -383,14 +357,14 @@ export default function EtiquetasPage() {
                         <img
                           src={qrMap[m.id]}
                           alt={`QR ${m.code}`}
-                          className="w-20 h-20 object-contain"
+                          className="w-[18mm] h-[18mm] object-contain"
                         />
                       ) : (
-                        <div className="w-20 h-20 flex items-center justify-center text-[9px] text-slate-400">
+                        <div className="w-[18mm] h-[18mm] flex items-center justify-center text-[9px] text-slate-400">
                           ...
                         </div>
                       )}
-                      <span className="text-[9px] font-mono font-black text-slate-800 mt-0.5">
+                      <span className="text-[8.5px] font-mono font-black text-slate-800 mt-0.5">
                         {m.code}
                       </span>
                     </div>
