@@ -72,27 +72,27 @@ export default function HomePage() {
           <div className="max-w-5xl mx-auto text-center relative z-10">
             <div className="inline-flex items-center gap-2 bg-slate-900 border border-purple-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-purple-200 mb-6 shadow-sm">
               <ShieldCheck className="w-3.5 h-3.5 text-orange-400" />
-              Tecnologia Exclusiva de Chamados via QR Code &middot; SLA de 24 Horas
+              Tecnologia Exclusiva de Chamados via QR Code &middot; SLA de 48 Horas
             </div>
 
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-6 tracking-tight">
               A Parceria Definitiva em <br />
               <span className="text-orange-400">
-                Manutenção & Locação Fitness
+                Manutenção, Reforma e Locação Fitness
               </span>
             </h1>
 
             <p className="text-slate-300 text-base md:text-lg max-w-2xl mx-auto mb-10 font-normal leading-relaxed">
               Eliminamos o transtorno de máquinas paradas em academias e condomínios. 
               Com QR Code em cada aparelho, qualquer pessoa abre o chamado em 10 segundos e a 
-              <strong> Fazendo Esporte atua em até 24 horas</strong>.
+              <strong> Fazendo Esporte atua em até 48 horas</strong>.
             </p>
 
             {/* TRUST PILLS */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 max-w-4xl mx-auto text-left">
               <div className="bg-slate-900/70 border border-slate-800 rounded-2xl p-4">
                 <Clock className="w-6 h-6 text-orange-400 mb-2" />
-                <div className="text-sm font-extrabold text-white">SLA de até 24h</div>
+                <div className="text-sm font-extrabold text-white">SLA de até 48h</div>
                 <div className="text-xs text-slate-400">Resposta e atendimento técnico ágil.</div>
               </div>
 
@@ -244,7 +244,7 @@ export default function HomePage() {
                 </div>
                 <div className="text-xs text-emerald-300 flex items-start gap-2 bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-500/30">
                   <Check className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span><strong>SLA Máximo de 24 Horas.</strong> Abertura via QR Code direto pelo morador.</span>
+                  <span><strong>SLA Máximo de 48 Horas.</strong> Abertura via QR Code direto pelo morador.</span>
                 </div>
               </div>
 
@@ -326,7 +326,7 @@ export default function HomePage() {
                   3
                 </div>
                 <h3 className="text-base font-bold text-white mb-2">
-                  Atendimento em até 24h & Notificação
+                  Atendimento em até 48h & Notificação
                 </h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
                   O Leandro recebe o alerta no painel, notifica a academia que está atuando e realiza o conserto com rapidez e segurança comprovadas.
@@ -368,7 +368,7 @@ export default function HomePage() {
                   <div className="text-[10px] text-slate-400 uppercase font-semibold">Máquinas Atendidas</div>
                 </div>
                 <div>
-                  <div className="text-xl font-black text-purple-400">24h</div>
+                  <div className="text-xl font-black text-purple-400">48h</div>
                   <div className="text-[10px] text-slate-400 uppercase font-semibold">SLA Máximo</div>
                 </div>
                 <div>

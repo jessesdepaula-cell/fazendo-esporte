@@ -133,7 +133,7 @@ export default function DashboardPage() {
             Dashboard &middot; Visão Geral Operacional
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Painel executivo de monitoramento de chamados, parque de máquinas e conformidade de SLA (24h).
+            Painel executivo de monitoramento de chamados, parque de máquinas e conformidade de SLA (48h).
           </p>
         </div>
 
@@ -329,12 +329,12 @@ export default function DashboardPage() {
 
         <div className="bg-gradient-to-br from-purple-900 to-slate-900 border border-purple-500/30 p-4 rounded-2xl shadow-xs text-white col-span-2 lg:col-span-1">
           <div className="flex items-center justify-between text-purple-200 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider">SLA Máximo 24h</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider">SLA Máximo 48h</span>
             <Clock className="w-4 h-4 text-orange-400" />
           </div>
           <div className="text-2xl font-black text-white">100% OK</div>
           <div className="text-[10px] text-purple-300 mt-1">
-            Atendimento garantido em até 24 horas
+            Atendimento garantido em até 48 horas
           </div>
         </div>
       </div>

@@ -131,7 +131,7 @@ export async function generateQrBadgePng(options: QrBadgeOptions): Promise<strin
 
     ctx.fillStyle = '#FFEDD5';
     ctx.font = '600 15px "Inter", "Segoe UI", sans-serif';
-    ctx.fillText('CENTRAL DE MANUTENÇÃO FITNESS · SLA 24H', width / 2, 145);
+    ctx.fillText('CENTRAL DE MANUTENÇÃO FITNESS · SLA 48H', width / 2, 145);
 
     // 3. Client Badge (Empresa / Condomínio)
     if (clientName) {
@@ -205,7 +205,7 @@ export async function generateQrBadgePng(options: QrBadgeOptions): Promise<strin
       // Subtitle explanation
       ctx.fillStyle = '#475569';
       ctx.font = '600 15px "Inter", "Segoe UI", sans-serif';
-      ctx.fillText('Abertura instantânea sem aplicativo  •  Atendimento técnico em até 24h', width / 2, footerY + 70);
+      ctx.fillText('Abertura instantânea sem aplicativo  •  Atendimento técnico em até 48h', width / 2, footerY + 70);
 
       // Support phone badge
       ctx.fillStyle = '#047857';

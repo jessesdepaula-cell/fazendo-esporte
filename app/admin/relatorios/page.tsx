@@ -117,7 +117,7 @@ export default function RelatoriosPage() {
                 <FileText className="w-6 h-6 text-purple-700" />
                 Emissor de Relatórios Executivos
                 <span className="text-xs bg-purple-100 text-purple-700 font-bold px-2.5 py-1 rounded-full border border-purple-200">
-                  Comprovação de SLA 24h
+                  Comprovação de SLA 48h
                 </span>
               </h1>
               <p className="text-xs text-slate-500 mt-1">
@@ -267,7 +267,7 @@ export default function RelatoriosPage() {
                 FAZENDO ESPORTE
               </h2>
               <p className="text-xs text-slate-500">
-                Relatório Técnico de Manutenção &middot; SLA Operacional de 24 Horas
+                Relatório Técnico de Manutenção &middot; SLA Operacional de 48 Horas
               </p>
             </div>
           </div>
@@ -300,7 +300,7 @@ export default function RelatoriosPage() {
 
           <div className="bg-blue-50/60 border border-blue-200 p-4 rounded-xl text-center">
             <div className="text-2xl font-black text-blue-950">100%</div>
-            <div className="text-[11px] font-bold text-blue-700 uppercase mt-1">Cumprimento de SLA (24h)</div>
+            <div className="text-[11px] font-bold text-blue-700 uppercase mt-1">Cumprimento de SLA (48h)</div>
           </div>
         </div>
 
@@ -312,7 +312,7 @@ export default function RelatoriosPage() {
           </h3>
           <p>
             O parque de máquinas do <strong>{currentClient?.name || 'Cliente'}</strong> está operando sob a gestão e monitoramento contínuo da Fazendo Esporte.
-            Todos os chamados recebidos pelo sistema de QR Code são acolhidos em tempo real com prazo máximo de atendimento de 24 horas úteis.
+            Todos os chamados recebidos pelo sistema de QR Code são acolhidos em tempo real com prazo máximo de atendimento de 48 horas úteis.
             As manutenções preventivas de cabos de aço, rolamentos, alinhamento de lonas de esteiras e lubrificação mantêm os equipamentos em perfeita segurança para os moradores e alunos.
           </p>
           <div className="mt-2 text-[11px] text-slate-500 font-semibold">

@@ -7,6 +7,7 @@ export interface Client {
   contact_email: string | null;
   address: string | null;
   active: boolean;
+  access_password?: string;
   created_at: string;
   machines_count?: number;
   open_tickets_count?: number;

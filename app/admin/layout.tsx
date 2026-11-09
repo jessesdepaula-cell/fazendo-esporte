@@ -18,7 +18,8 @@ import {
   Phone,
   LogOut,
   User,
-  ShieldCheck
+  ShieldCheck,
+  KeyRound
 } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -93,7 +94,34 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
 
     loadClientsAndStats();
-  }, []);
+
+    // Listen to local event when status changes in Kanban
+    const handleLocalUpdate = () => {
+      loadClientsAndStats();
+    };
+    window.addEventListener('tickets-updated', handleLocalUpdate);
+
+    // Subscribe to realtime ticket changes in Supabase
+    const channel = supabase
+      .channel('layout-tickets-realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'tickets' },
+        () => {
+          loadClientsAndStats();
+        }
+      )
+      .subscribe();
+
+    // Periodic safety poll every 5 seconds
+    const interval = setInterval(loadClientsAndStats, 5000);
+
+    return () => {
+      window.removeEventListener('tickets-updated', handleLocalUpdate);
+      supabase.removeChannel(channel);
+      clearInterval(interval);
+    };
+  }, [pathname]);
 
   async function handleSignOut() {
     await supabase.auth.signOut();
@@ -109,7 +137,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       badgeColor: 'bg-purple-900/60 text-purple-200 border border-purple-500/30'
     },
     {
-      label: 'Quadro Kanban (SLA 24h)',
+      label: 'Quadro Kanban (SLA 48h)',
       href: '/admin',
       icon: Clock,
       badge: openTicketsCount > 0 ? `${openTicketsCount} A Fazer` : undefined,
@@ -121,6 +149,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       icon: Wrench,
       badge: machinesCount > 0 ? `${machinesCount} máq.` : 'Máquinas',
       badgeColor: 'bg-slate-800 text-slate-300'
+    },
+    {
+      label: 'Senhas de Clientes',
+      href: '/admin/clientes',
+      icon: KeyRound,
+      badge: 'Acesso QR',
+      badgeColor: 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
     },
     {
       label: 'Gerador de Etiquetas QR',
@@ -221,7 +256,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="flex items-center justify-between text-xs font-bold text-slate-200 mb-1.5">
               <span className="flex items-center gap-1.5 text-orange-400">
                 <Clock className="w-3.5 h-3.5" />
-                SLA Operacional (24h)
+                SLA Operacional (48h)
               </span>
               <span className="bg-emerald-500/20 text-emerald-400 text-[10px] px-1.5 py-0.5 rounded font-mono font-bold">
                 100% OK
@@ -313,14 +348,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               Fazendo Esporte &middot; Central de Gestão & Manutenção
             </span>
             <span className="text-[10px] bg-purple-100 text-purple-800 font-extrabold px-2 py-0.5 rounded-full border border-purple-200">
-              SLA 24H Ativo
+              SLA 48H Ativo
             </span>
           </div>
 
           <div className="flex items-center gap-3">
             <div className="bg-orange-50 text-orange-800 border border-orange-200 text-xs font-bold px-3 py-1 rounded-lg flex items-center gap-2">
               <Clock className="w-3.5 h-3.5 text-orange-600" />
-              SLA Máximo: 24 Horas
+              SLA Máximo: 48 Horas
             </div>
 
             <a

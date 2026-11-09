@@ -101,7 +101,7 @@ export default function LoginPage() {
               FAZENDO ESPORTE
             </h1>
             <p className="text-xs text-purple-300 font-semibold mt-0.5">
-              Central de Gestão Técnica & SLA 24h
+              Central de Gestão Técnica & SLA 48h
             </p>
             <p className="text-xs text-slate-400 mt-2">
               Painel operacional exclusivo de <strong>Leandro Amélio</strong>
