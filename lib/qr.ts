@@ -39,7 +39,7 @@ export async function generateQrBadgePng(options: QrBadgeOptions): Promise<strin
   const {
     qrDataUrl,
     companyName = 'FAZENDO ESPORTE',
-    companySubtitle = 'Vibranium Aluguel de Equipamentos Esportivos',
+    companySubtitle = 'Manutenção & Locação de Equipamentos Fitness',
     clientName = 'Cliente Fazendo Esporte',
     machineName,
     machineCode,

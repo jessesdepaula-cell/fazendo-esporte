@@ -216,7 +216,7 @@ export default function LoginPage() {
               <span className="font-mono text-purple-300 font-bold">Fazendoesporte2022@gmail.com</span>
             </p>
             <p className="text-[10px] text-slate-500 mt-1">
-              Vibranium Aluguel de Equipamentos Esportivos Ltda
+              Fazendo Esporte &middot; Gestão e Manutenção de Equipamentos
             </p>
           </div>
         </div>

@@ -26,7 +26,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [clients, setClients] = useState<Client[]>([]);
-  const [selectedClientSlug, setSelectedClientSlug] = useState<string>('todos');
+  const [machinesCount, setMachinesCount] = useState<number>(0);
   const [openTicketsCount, setOpenTicketsCount] = useState<number>(0);
   const [inProgressCount, setInProgressCount] = useState<number>(0);
 
@@ -73,6 +73,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         setClients(clientsData);
       }
 
+      // Load machines count
+      const { count: mCount } = await supabase
+        .from('machines')
+        .select('*', { count: 'exact', head: true });
+      if (mCount !== null) {
+        setMachinesCount(mCount);
+      }
+
       // Load tickets counts
       const { data: ticketsData } = await supabase
         .from('tickets')
@@ -111,7 +119,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       label: 'Parque de Máquinas',
       href: '/admin/maquinas',
       icon: Wrench,
-      badge: '21 máq.',
+      badge: machinesCount > 0 ? `${machinesCount} máq.` : 'Máquinas',
       badgeColor: 'bg-slate-800 text-slate-300'
     },
     {
@@ -151,9 +159,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col md:flex-row">
+    <div className="h-screen w-full overflow-hidden bg-slate-100 flex flex-col md:flex-row">
       {/* MOBILE TOPBAR */}
-      <div className="md:hidden bg-slate-900 border-b border-purple-500/20 text-white px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+      <div className="md:hidden bg-slate-900 border-b border-purple-500/20 text-white px-4 py-3 flex items-center justify-between flex-shrink-0 z-50">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 bg-white rounded-lg p-0.5 flex items-center justify-center">
             <Image src="/logo.png" alt="Logo" width={28} height={28} className="object-contain" />
@@ -180,10 +188,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </div>
 
-      {/* SIDEBAR */}
+      {/* MOBILE BACKDROP OVERLAY */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-slate-950/70 z-30 md:hidden backdrop-blur-xs"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* SIDEBAR (FIXED VIEWPORT HEIGHT - NEVER ROLLS OFF SCREEN) */}
       <aside className={`
-        fixed md:static inset-y-0 left-0 z-40
-        w-72 bg-slate-900 border-r border-slate-800 text-slate-300 flex flex-col justify-between
+        fixed md:relative inset-y-0 left-0 z-40
+        w-72 h-full bg-slate-900 border-r border-slate-800 text-slate-300 flex flex-col justify-between flex-shrink-0
         transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
@@ -256,8 +272,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
         </div>
 
-        {/* SIDEBAR FOOTER & USER PROFILE */}
-        <div className="p-3.5 border-t border-slate-800 bg-slate-950/70 text-xs">
+        {/* SIDEBAR FOOTER & USER PROFILE (ALWAYS PINNED AT BOTTOM) */}
+        <div className="p-3.5 border-t border-slate-800 bg-slate-950/90 text-xs flex-shrink-0">
           <div className="flex items-center justify-between mb-2.5 bg-slate-900/90 p-2.5 rounded-xl border border-slate-800">
             <div className="flex items-center gap-2.5 overflow-hidden">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-orange-500 text-white font-black text-xs flex items-center justify-center flex-shrink-0">
@@ -287,10 +303,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </aside>
 
-      {/* MAIN CONTENT AREA */}
-      <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+      {/* MAIN CONTENT AREA (INDEPENDENT RIGHT-SIDE SCROLL) */}
+      <main className="flex-1 flex flex-col min-w-0 h-full overflow-y-auto bg-slate-100">
         {/* TOP STATUS BAR */}
-        <header className="hidden md:flex bg-white border-b border-slate-200 px-6 py-3.5 items-center justify-between shadow-xs">
+        <header className="hidden md:flex bg-white border-b border-slate-200 px-6 py-3.5 items-center justify-between shadow-xs sticky top-0 z-20 flex-shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-xs font-black text-slate-800 tracking-wide uppercase">

@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Fazendo Esporte | Gestão & Manutenção Inteligente",
-  description: "Plataforma de chamados via QR Code com atendimento em até 24 horas para academias e condomínios. Vibranium Aluguel de Equipamentos Esportivos.",
+  description: "Plataforma de chamados via QR Code com atendimento em até 24 horas para academias e condomínios. Fazendo Esporte - Gestão e Manutenção de Equipamentos Fitness.",
   icons: {
     icon: [
       { url: '/icon.png', type: 'image/png' },

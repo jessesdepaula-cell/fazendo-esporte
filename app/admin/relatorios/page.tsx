@@ -261,7 +261,7 @@ export default function RelatoriosPage() {
             </div>
             <div>
               <div className="text-xs font-black uppercase text-purple-900 tracking-wider">
-                VIBRANIUM ALUGUEL DE EQUIPAMENTOS ESPORTIVOS LTDA
+                FAZENDO ESPORTE &middot; MANUTENÇÃO & LOCAÇÃO
               </div>
               <h2 className="text-2xl font-black text-slate-900">
                 FAZENDO ESPORTE

@@ -64,7 +64,7 @@ export default function EtiquetasPage() {
     const badgeDataUrl = await generateQrBadgePng({
       qrDataUrl: rawQr,
       companyName: 'FAZENDO ESPORTE',
-      companySubtitle: 'Vibranium Aluguel de Equipamentos',
+      companySubtitle: 'Manutenção & Locação de Equipamentos',
       clientName: m.client?.name || currentClient?.name || 'Cliente Fazendo Esporte',
       machineName: m.name,
       machineCode: m.code,

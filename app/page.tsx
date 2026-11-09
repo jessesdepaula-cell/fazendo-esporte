@@ -37,7 +37,7 @@ export default function HomePage() {
             </div>
             <div>
               <div className="text-base font-black tracking-wide text-white">FAZENDO ESPORTE</div>
-              <div className="text-[11px] text-purple-300 font-medium">Vibranium Equipamentos Esportivos</div>
+              <div className="text-[11px] text-purple-300 font-medium">Manutenção & Locação Fitness</div>
             </div>
           </div>
 
@@ -414,7 +414,7 @@ export default function HomePage() {
             <div>
               <div className="text-sm font-extrabold text-white">FAZENDO ESPORTE</div>
               <div className="text-[11px] text-slate-400">
-                VIBRANIUM ALUGUEL DE EQUIPAMENTOS ESPORTIVOS LTDA
+                Manutenção Especializada &middot; Gestão Inteligente
               </div>
               <div className="text-[10px] text-slate-500">
                 Locação e Manutenção Inteligente &middot; Rio de Janeiro - RJ

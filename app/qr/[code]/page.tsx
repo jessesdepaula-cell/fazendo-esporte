@@ -45,20 +45,30 @@ export default function QrReportPage() {
       if (!codeParam) return;
       try {
         setLoading(true);
-        // Query by code or id
-        const { data, error } = await supabase
+        const cleanParam = decodeURIComponent(codeParam).trim();
+        const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(cleanParam);
+
+        let query = supabase
           .from('machines')
-          .select('*, client:clients(*)')
-          .or(`code.eq.${codeParam},id.eq.${codeParam}`)
-          .single();
+          .select('*, client:clients(*)');
+
+        if (isUuid) {
+          query = query.eq('id', cleanParam);
+        } else {
+          query = query.ilike('code', cleanParam);
+        }
+
+        const { data, error } = await query.maybeSingle();
 
         if (error || !data) {
+          console.error('Error fetching machine:', error);
           setError('Máquina não encontrada no sistema. Verifique o código do QR Code.');
         } else {
           setMachine(data);
           setClient(data.client);
         }
       } catch (err: any) {
+        console.error('Unexpected error loading machine:', err);
         setError('Erro ao carregar dados da máquina.');
       } finally {
         setLoading(false);
@@ -453,8 +463,8 @@ export default function QrReportPage() {
 
       {/* FOOTER */}
       <footer className="text-center py-4 border-t border-slate-900 text-[11px] text-slate-500">
-        <p>Fazendo Esporte &middot; Vibranium Aluguel de Equipamentos Esportivos Ltda</p>
-        <p className="text-[10px] text-slate-600 mt-0.5">CNPJ: 64.427.706/0001-17 &middot; Rio de Janeiro - RJ</p>
+        <p>Fazendo Esporte &middot; Manutenção & Locação de Equipamentos Fitness</p>
+        <p className="text-[10px] text-slate-600 mt-0.5">Rio de Janeiro - RJ</p>
       </footer>
     </div>
   );
