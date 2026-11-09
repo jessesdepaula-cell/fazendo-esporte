@@ -261,7 +261,7 @@ export default function RelatoriosPage() {
             </div>
             <div>
               <div className="text-xs font-black uppercase text-purple-900 tracking-wider">
-                FAZENDO ESPORTE &middot; MANUTENÇÃO & LOCAÇÃO
+                SFE - SERVIÇOS FAZENDO ESPORTE
               </div>
               <h2 className="text-2xl font-black text-slate-900">
                 FAZENDO ESPORTE

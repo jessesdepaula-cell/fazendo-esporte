@@ -64,7 +64,7 @@ export default function EtiquetasPage() {
     const badgeDataUrl = await generateQrBadgePng({
       qrDataUrl: rawQr,
       companyName: 'FAZENDO ESPORTE',
-      companySubtitle: 'Manutenção & Locação de Equipamentos',
+      companySubtitle: 'SFE - Serviços Fazendo Esporte',
       clientName: m.client?.name || currentClient?.name || 'Cliente Fazendo Esporte',
       machineName: m.name,
       machineCode: m.code,

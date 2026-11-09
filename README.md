@@ -1,6 +1,6 @@
 # Fazendo Esporte &middot; Plataforma de Chamados QR Code & SLA 24h
 
-Sistema inteligente de gestão, chamados via QR Code e monitoramento de equipamentos de academia para a **Fazendo Esporte** (**Manutenção & Locação de Equipamentos Fitness**), liderada por **Leandro Amélio**.
+Sistema inteligente de gestão, chamados via QR Code e monitoramento de equipamentos de academia para a **Fazendo Esporte** (**SFE - Serviços Fazendo Esporte**), liderada por **Leandro Amélio**.
 
 Desenvolvido por **Jessé de Paula**.
 

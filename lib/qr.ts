@@ -39,7 +39,7 @@ export async function generateQrBadgePng(options: QrBadgeOptions): Promise<strin
   const {
     qrDataUrl,
     companyName = 'FAZENDO ESPORTE',
-    companySubtitle = 'Manutenção & Locação de Equipamentos Fitness',
+    companySubtitle = 'SFE - Serviços Fazendo Esporte',
     clientName = 'Cliente Fazendo Esporte',
     machineName,
     machineCode,

@@ -37,7 +37,7 @@ export default function HomePage() {
             </div>
             <div>
               <div className="text-base font-black tracking-wide text-white">FAZENDO ESPORTE</div>
-              <div className="text-[11px] text-purple-300 font-medium">Manutenção & Locação Fitness</div>
+              <div className="text-[11px] text-purple-300 font-medium">SFE - Serviços Fazendo Esporte</div>
             </div>
           </div>
 
@@ -414,7 +414,7 @@ export default function HomePage() {
             <div>
               <div className="text-sm font-extrabold text-white">FAZENDO ESPORTE</div>
               <div className="text-[11px] text-slate-400">
-                Manutenção Especializada &middot; Gestão Inteligente
+                SFE - Serviços Fazendo Esporte
               </div>
               <div className="text-[10px] text-slate-500">
                 Locação e Manutenção Inteligente &middot; Rio de Janeiro - RJ

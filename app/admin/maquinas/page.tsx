@@ -43,7 +43,7 @@ export default function MachinesPage() {
         urlToDownload = await generateQrBadgePng({
           qrDataUrl: rawQr,
           companyName: 'FAZENDO ESPORTE',
-          companySubtitle: 'Manutenção & Locação de Equipamentos',
+          companySubtitle: 'SFE - Serviços Fazendo Esporte',
           clientName: m.client?.name || 'Cliente Fazendo Esporte',
           machineName: m.name,
           machineCode: m.code,

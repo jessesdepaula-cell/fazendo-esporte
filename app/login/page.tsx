@@ -216,7 +216,7 @@ export default function LoginPage() {
               <span className="font-mono text-purple-300 font-bold">Fazendoesporte2022@gmail.com</span>
             </p>
             <p className="text-[10px] text-slate-500 mt-1">
-              Fazendo Esporte &middot; Gestão e Manutenção de Equipamentos
+              SFE - Serviços Fazendo Esporte
             </p>
           </div>
         </div>

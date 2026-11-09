@@ -463,7 +463,7 @@ export default function QrReportPage() {
 
       {/* FOOTER */}
       <footer className="text-center py-4 border-t border-slate-900 text-[11px] text-slate-500">
-        <p>Fazendo Esporte &middot; Manutenção & Locação de Equipamentos Fitness</p>
+        <p>Fazendo Esporte &middot; SFE - Serviços Fazendo Esporte</p>
         <p className="text-[10px] text-slate-600 mt-0.5">Rio de Janeiro - RJ</p>
       </footer>
     </div>

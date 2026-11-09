@@ -168,7 +168,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
           <div>
             <div className="text-sm font-black text-white">FAZENDO ESPORTE</div>
-            <div className="text-[10px] text-purple-300">Painel do Leandro Amélio</div>
+            <div className="text-[10px] text-purple-300">SFE - Serviços Fazendo Esporte</div>
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -211,7 +211,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
             <div>
               <div className="text-sm font-black text-white tracking-wide">FAZENDO ESPORTE</div>
-              <div className="text-[11px] text-purple-400 font-semibold">Central de Manutenção 24h</div>
+              <div className="text-[11px] text-purple-400 font-semibold">SFE - Serviços Fazendo Esporte</div>
               <div className="text-[10px] text-slate-500">Leandro Amélio</div>
             </div>
           </div>
