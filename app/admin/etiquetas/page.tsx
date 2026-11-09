@@ -65,7 +65,7 @@ export default function EtiquetasPage() {
       qrDataUrl: rawQr,
       companyName: 'FAZENDO ESPORTE',
       companySubtitle: 'Vibranium Aluguel de Equipamentos',
-      clientName: m.client?.name || currentClient?.name || 'Condomínio Varandas do Atlântico',
+      clientName: m.client?.name || currentClient?.name || 'Cliente Fazendo Esporte',
       machineName: m.name,
       machineCode: m.code,
       category: m.category,

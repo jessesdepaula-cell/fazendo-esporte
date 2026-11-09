@@ -40,7 +40,7 @@ export async function generateQrBadgePng(options: QrBadgeOptions): Promise<strin
     qrDataUrl,
     companyName = 'FAZENDO ESPORTE',
     companySubtitle = 'Vibranium Aluguel de Equipamentos Esportivos',
-    clientName = 'Condomínio Varandas do Atlântico',
+    clientName = 'Cliente Fazendo Esporte',
     machineName,
     machineCode,
     category,

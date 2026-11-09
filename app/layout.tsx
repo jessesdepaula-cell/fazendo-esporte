@@ -5,7 +5,13 @@ export const metadata: Metadata = {
   title: "Fazendo Esporte | Gestão & Manutenção Inteligente",
   description: "Plataforma de chamados via QR Code com atendimento em até 24 horas para academias e condomínios. Vibranium Aluguel de Equipamentos Esportivos.",
   icons: {
-    icon: "/logo.png",
+    icon: [
+      { url: '/icon.png', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/logo.png', type: 'image/png' }
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/logo.png',
   },
 };
 
