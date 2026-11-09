@@ -133,43 +133,31 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       label: 'Dashboard (Visão Geral)',
       href: '/admin/dashboard',
       icon: LayoutDashboard,
-      badge: 'Geral',
-      badgeColor: 'bg-purple-900/60 text-purple-200 border border-purple-500/30'
     },
     {
       label: 'Quadro Kanban (SLA 48h)',
       href: '/admin',
       icon: Clock,
-      badge: openTicketsCount > 0 ? `${openTicketsCount} A Fazer` : undefined,
-      badgeColor: 'bg-orange-500 text-white'
     },
     {
       label: 'Parque de Máquinas',
       href: '/admin/maquinas',
       icon: Wrench,
-      badge: machinesCount > 0 ? `${machinesCount} máq.` : 'Máquinas',
-      badgeColor: 'bg-slate-800 text-slate-300'
     },
     {
       label: 'Senhas de Clientes',
       href: '/admin/clientes',
       icon: KeyRound,
-      badge: 'Acesso QR',
-      badgeColor: 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
     },
     {
       label: 'Gerador de Etiquetas QR',
       href: '/admin/etiquetas',
       icon: QrCode,
-      badge: 'Imprimir A4',
-      badgeColor: 'bg-purple-100 text-purple-700'
     },
     {
       label: 'Relatórios Executivos',
       href: '/admin/relatorios',
       icon: FileText,
-      badge: 'PDF',
-      badgeColor: 'bg-emerald-500/20 text-emerald-400'
     },
     {
       label: 'Ver Site Institucional',
@@ -287,21 +275,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <a
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                     active
                       ? 'bg-gradient-to-r from-orange-500 to-purple-600 text-white shadow-md'
                       : 'hover:bg-slate-800 text-slate-400 hover:text-white'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className="w-4 h-4" />
-                    <span>{item.label}</span>
-                  </div>
-                  {item.badge && (
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${item.badgeColor || 'bg-slate-800 text-slate-300'}`}>
-                      {item.badge}
-                    </span>
-                  )}
+                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <span className="truncate">{item.label}</span>
                 </a>
               );
             })}
