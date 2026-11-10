@@ -338,8 +338,8 @@ export default function HomePage() {
 
       </main>
 
-      {/* BOTÃO FLUTUANTE DE WHATSAPP */}
-      <aside className="fixed bottom-6 right-6 z-50 flex items-center">
+      {/* BOTÃO FLUTUANTE DE WHATSAPP (Posicionado à esquerda para não sobrepor dados de contato no rodapé) */}
+      <aside className="fixed bottom-6 left-6 z-50 flex items-center">
         <a
           href="https://wa.me/5521999995359?text=Olá%20Leandro,%20vi%20o%20site%20da%20Fazendo%20Esporte%20e%20gostaria%20de%20um%20orçamento%20para%20minha%20academia"
           target="_blank"
@@ -362,7 +362,7 @@ export default function HomePage() {
       </aside>
 
       {/* FOOTER */}
-      <footer className="bg-slate-950 border-t border-slate-800/80 px-4 md:px-8 py-8 text-xs text-slate-400">
+      <footer className="bg-slate-950 border-t border-slate-800/80 px-4 md:px-8 pt-8 pb-24 md:pb-8 text-xs text-slate-400">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-white rounded-xl p-1 flex items-center justify-center">
@@ -379,15 +379,15 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="text-center md:text-right space-y-1">
+          <div className="text-center md:text-right space-y-1.5">
             <div>
               Responsável Técnico: <strong className="text-white">Leandro Amélio</strong>
             </div>
             <div>
-              WhatsApp: <a href="https://wa.me/5521999995359" className="text-orange-400 font-bold hover:underline">(21) 99999-5359</a> &middot; E-mail: <span className="text-slate-300">amelioleandro@gmail.com</span>
+              WhatsApp: <a href="https://wa.me/5521999995359" target="_blank" rel="noopener noreferrer" className="text-orange-400 font-bold hover:underline">(21) 99999-5359</a> &middot; E-mail: <a href="mailto:fazendoesporte2022@gmail.com" className="text-slate-300 hover:text-white font-medium hover:underline">fazendoesporte2022@gmail.com</a>
             </div>
             <div className="text-purple-400 font-semibold">
-              Instagram: @fazendoesporte
+              Instagram: <a href="https://instagram.com/fazendoesporte" target="_blank" rel="noopener noreferrer" className="hover:underline">@fazendoesporte</a>
             </div>
           </div>
         </div>
