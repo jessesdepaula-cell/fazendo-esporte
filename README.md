@@ -1,6 +1,6 @@
 # Fazendo Esporte &middot; Plataforma de Chamados QR Code & SLA 48h
 
-Sistema inteligente de gestão, chamados via QR Code e monitoramento de equipamentos de academia para a **Fazendo Esporte** (**SFE - Serviços Fazendo Esporte**), liderada por **Leandro Amélio**.
+Sistema inteligente de gestão, chamados via QR Code e monitoramento de equipamentos de academia para uma empresa de manutenção, reforma e locação de equipamentos fitness.
 
 Desenvolvido por **Jessé de Paula**.
 
@@ -12,7 +12,7 @@ Desenvolvido por **Jessé de Paula**.
    - Cada máquina possui um QR Code adesivado exclusivo.
    - Ao ler com a câmera do celular, o link abre no navegador identificando condomínio e máquina.
    - **Password Gate:** Exige a senha cadastrada para o condomínio pelo síndico/responsável, evitando chamados indevidos de alunos.
-   - **Envio Simultâneo:** Ao submeter, cria o chamado no banco/Kanban com SLA de 48h e abre automaticamente o WhatsApp do Leandro com todo o texto formatado para envio direto.
+   - **Envio Simultâneo:** Ao submeter, cria o chamado no banco/Kanban com SLA de 48h e abre automaticamente o WhatsApp do responsável pela manutenção com todo o texto formatado para envio direto.
 
 2. **Quadro Kanban de Manutenção (`/admin`):**
    - Colunas: **A Fazer**, **Fazendo** e **Feito**.
@@ -53,3 +53,19 @@ Desenvolvido por **Jessé de Paula**.
 - **QR Code Engine:** QRCode.js
 - **Banco de Dados & Backend:** Supabase (PostgreSQL 17 com RLS e Realtime)
 - **Hospedagem & Deploy:** Vercel
+
+---
+
+## Stack
+
+- **Next.js** (App Router) + **TypeScript**
+- **Supabase** (PostgreSQL + Realtime)
+- **Vercel** (deploy)
+
+## Deploy
+
+https://fazendo-esporte.vercel.app
+
+## Desafio resolvido
+
+Manter o SLA de 48h visível para a equipe e provável para o cliente: cronômetro regressivo no quadro Kanban, tempo de conclusão registrado e relatório em PDF para o síndico.
