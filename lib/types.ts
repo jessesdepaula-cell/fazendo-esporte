@@ -47,3 +47,21 @@ export interface Ticket {
   client?: Client;
   machine?: Machine;
 }
+
+export interface ExecutiveVisit {
+  id?: string;
+  client_id: string;
+  client_name?: string;
+  client_slug?: string;
+  technician_name: string;
+  service_type: string;
+  visit_date: string;
+  visit_time: string;
+  description: string;
+  machine_id?: string;
+  machine_code?: string;
+  machine_name?: string;
+  status: 'feito' | 'fazendo';
+  photo_url?: string | null;
+  created_at?: string;
+}
