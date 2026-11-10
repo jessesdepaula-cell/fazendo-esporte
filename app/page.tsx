@@ -129,7 +129,7 @@ export default function HomePage() {
               </h2>
               <p className="text-slate-300 text-sm sm:text-base mt-3 leading-relaxed">
                 Por que desembolsar R$ 100 mil na compra de aparelhos que desvalorizam todo ano?
-                Com a locação da <strong>Fazendo Esporte</strong>, seu condomínio recebe esteiras, bikes e estações de musculação profissionais com manutenção e peças 100% inclusas.
+                Com a locação da <strong>Fazendo Esporte</strong>, seu condomínio recebe esteiras, bikes e aparelhos de musculação profissionais com manutenção e peças 100% inclusas.
               </p>
             </div>
 
@@ -170,7 +170,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-base font-black text-white mb-2">Linha Profissional</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Equipamentos das marcas mais consagradas do mercado: esteiras Movement, bikes Schwinn e estações biomecânicas Buick de alta durabilidade.
+                  Equipamentos das marcas mais consagradas do mercado: esteiras Movement, bikes Schwinn e aparelhos biomecânicos Buick de alta durabilidade.
                 </p>
               </div>
             </div>
@@ -358,7 +358,7 @@ export default function HomePage() {
               </div>
 
               <p className="text-xs text-slate-300 leading-relaxed mb-6">
-                Parque completo monitorado com QR Codes individuais em cada esteira Movement, bikes Schwinn e estações Buick de musculação.
+                Parque completo monitorado com QR Codes individuais em cada esteira Movement, bikes Schwinn e aparelhos Buick de musculação.
                 A gestão predial conta com tranquilidade absoluta e suporte direto da Fazendo Esporte.
               </p>
 
