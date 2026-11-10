@@ -302,7 +302,7 @@ export default function HomePage() {
                   1
                 </div>
                 <h3 className="text-base font-bold text-white mb-2">
-                  Aluno ou Instrutor Lê o QR Code
+                  Responsável Lê o QR Code
                 </h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
                   Aparelho deu problema? Basta apontar a câmera do celular para a etiqueta adesiva colada na máquina. O link abre instantaneamente.
