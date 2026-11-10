@@ -84,7 +84,7 @@ export default function HomePage() {
 
             <p className="text-slate-300 text-base md:text-lg max-w-2xl mx-auto mb-10 font-normal leading-relaxed">
               Eliminamos o transtorno de máquinas paradas em academias e condomínios. 
-              Com QR Code em cada aparelho, qualquer pessoa abre o chamado em 10 segundos e a 
+              Com QR Code em cada aparelho, qualquer responsável abre o chamado em 10 segundos e a 
               <strong> Fazendo Esporte atua em até 48 horas</strong>.
             </p>
 
