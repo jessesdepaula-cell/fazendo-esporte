@@ -336,49 +336,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* MARCAS E CLIENTES */}
-        <section className="py-20 px-4 md:px-8 border-t border-slate-800 bg-slate-950">
-          <div className="max-w-5xl mx-auto text-center">
-            <span className="text-xs font-bold text-purple-400 uppercase tracking-widest bg-purple-500/10 border border-purple-500/30 px-3 py-1 rounded-full">
-              CASO DE SUCESSO EM OPERAÇÃO
-            </span>
-            <h2 className="text-2xl font-black text-white mt-4 mb-8">
-              Condomínio Varandas do Atlântico
-            </h2>
-
-            <div className="bg-gradient-to-br from-purple-950/40 to-slate-900 border border-purple-500/30 rounded-3xl p-6 md:p-8 text-left max-w-3xl mx-auto shadow-xl">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-purple-600 text-white rounded-xl flex items-center justify-center font-black text-lg shadow-md">
-                  VA
-                </div>
-                <div>
-                  <h3 className="text-lg font-black text-white">Condomínio Varandas do Atlântico</h3>
-                  <p className="text-xs text-slate-400">Rio de Janeiro &middot; Gestão de 21 Equipamentos</p>
-                </div>
-              </div>
-
-              <p className="text-xs text-slate-300 leading-relaxed mb-6">
-                Parque completo monitorado com QR Codes individuais em cada esteira Movement, bikes Schwinn e aparelhos Buick de musculação.
-                A gestão predial conta com tranquilidade absoluta e suporte direto da Fazendo Esporte.
-              </p>
-
-              <div className="grid grid-cols-3 gap-3 text-center border-t border-slate-800 pt-4">
-                <div>
-                  <div className="text-xl font-black text-orange-400">21</div>
-                  <div className="text-[10px] text-slate-400 uppercase font-semibold">Máquinas Atendidas</div>
-                </div>
-                <div>
-                  <div className="text-xl font-black text-purple-400">48h</div>
-                  <div className="text-[10px] text-slate-400 uppercase font-semibold">SLA Máximo</div>
-                </div>
-                <div>
-                  <div className="text-xl font-black text-emerald-400">100%</div>
-                  <div className="text-[10px] text-slate-400 uppercase font-semibold">Disponibilidade</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       {/* BOTÃO FLUTUANTE DE WHATSAPP */}
