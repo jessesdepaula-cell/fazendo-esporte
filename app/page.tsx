@@ -170,7 +170,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-base font-black text-white mb-2">Linha Profissional</h3>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Equipamentos das marcas mais consagradas do mercado: esteiras Movement, bikes Schwinn e aparelhos biomecânicos Buick de alta durabilidade.
+                  Equipamentos das marcas mais consagradas do mercado: Movement, Life Fitness, Schwinn, Technogym, Buick e Righetto de alta durabilidade.
                 </p>
               </div>
             </div>
