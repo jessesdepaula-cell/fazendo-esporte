@@ -64,7 +64,7 @@ Desenvolvido por **Jessé de Paula**.
 
 ## Deploy
 
-https://fazendo-esporte.vercel.app
+https://fazendoesporte.com.br
 
 ## Desafio resolvido
 

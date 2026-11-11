@@ -86,7 +86,7 @@ export default function MachinesPage() {
           
           // Generate QR code data URLs for machines
           const qrs: Record<string, string> = {};
-          const origin = typeof window !== 'undefined' ? window.location.origin : 'https://fazendoesporte.com.br';
+          const origin = 'https://fazendoesporte.com.br';
           for (const m of machinesData) {
             const url = `${origin}/qr/${m.code}`;
             qrs[m.id] = await generateQrDataUrl(url);

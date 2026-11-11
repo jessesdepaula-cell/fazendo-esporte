@@ -57,7 +57,7 @@ export default function RelatoriosPage() {
           if (clientsData.length > 0) setSelectedClient(clientsData[0].id);
 
           // Generate QR codes for all clients pointing to /visita/[slug]
-          const origin = typeof window !== 'undefined' ? window.location.origin : 'https://fazendoesporte.com.br';
+          const origin = 'https://fazendoesporte.com.br';
           const qrs: Record<string, string> = {};
           for (const c of clientsData) {
             const visitUrl = `${origin}/visita/${c.slug}`;
@@ -159,7 +159,7 @@ export default function RelatoriosPage() {
   };
 
   const handleCopyLink = (clientSlug: string, clientId: string) => {
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://fazendoesporte.com.br';
+    const origin = 'https://fazendoesporte.com.br';
     const url = `${origin}/visita/${clientSlug}`;
     navigator.clipboard.writeText(url);
     setCopiedId(clientId);
@@ -388,7 +388,7 @@ export default function RelatoriosPage() {
             {clientsToDisplay.map((c) => {
               const qrUrl = clientQrMap[c.id];
               const clientMachinesCount = machines.filter(m => m.client_id === c.id).length;
-              const origin = typeof window !== 'undefined' ? window.location.origin : 'https://fazendoesporte.com.br';
+              const origin = 'https://fazendoesporte.com.br';
               const visitUrl = `${origin}/visita/${c.slug}`;
 
               return (
@@ -443,7 +443,7 @@ export default function RelatoriosPage() {
                             Link de Check-in Técnico:
                           </span>
                           <span className="font-mono text-purple-900 font-bold text-xs break-all">
-                            /visita/{c.slug}
+                            https://fazendoesporte.com.br/visita/{c.slug}
                           </span>
                         </div>
 
@@ -669,7 +669,7 @@ export default function RelatoriosPage() {
           <div>
             {(printMode === 'qrcode-single' && printingClient ? [printingClient] : clients).map((c, index) => {
               const qrUrl = clientQrMap[c.id];
-              const origin = typeof window !== 'undefined' ? window.location.origin : 'https://fazendoesporte.com.br';
+              const origin = 'https://fazendoesporte.com.br';
               const visitUrl = `${origin}/visita/${c.slug}`;
 
               return (
