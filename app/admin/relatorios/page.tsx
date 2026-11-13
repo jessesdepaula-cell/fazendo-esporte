@@ -54,7 +54,6 @@ export default function RelatoriosPage() {
         const { data: clientsData } = await supabase.from('clients').select('*').order('name');
         if (clientsData) {
           setClients(clientsData);
-          if (clientsData.length > 0) setSelectedClient(clientsData[0].id);
 
           // Generate QR codes for all clients pointing to /visita/[slug]
           const origin = 'https://fazendoesporte.com.br';
@@ -448,7 +447,7 @@ export default function RelatoriosPage() {
                         </div>
 
                         <div className="text-slate-600 leading-relaxed text-[11px]">
-                          Ao ler esse QR Code, a página identifica automaticamente o <strong>{c.name}</strong>, permitindo registrar a hora de chegada e o laudo dos serviços executados.
+                          Ao ler esse QR Code, a página identifica automaticamente o <strong>{c.name}</strong>, permitindo registrar a hora de chegada e o laudo dos serviços executados. Protegido pela senha do técnico.
                         </div>
 
                         <div className="flex items-center gap-2 pt-1">

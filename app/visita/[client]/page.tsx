@@ -23,8 +23,13 @@ import {
   RefreshCw,
   Share2,
   ChevronRight,
-  ShieldCheck
+  ShieldCheck,
+  Lock,
+  KeyRound,
+  LogIn
 } from 'lucide-react';
+
+const VISITA_OK_KEY = 'sfe_visita_ok';
 
 export default function VisitaTecnicaPage() {
   const params = useParams();
@@ -47,6 +52,42 @@ export default function VisitaTecnicaPage() {
   const [photoUrl, setPhotoUrl] = useState<string>('');
   const [submitting, setSubmitting] = useState(false);
   const [submittedVisit, setSubmittedVisit] = useState<any>(null);
+
+  // Senha do técnico: checada no servidor; depois fica lembrada neste aparelho.
+  // ponytail: a marca no localStorage barra quem só lê o QR na parede, não quem mexe no navegador.
+  const [liberado, setLiberado] = useState<boolean | null>(null);
+  const [senha, setSenha] = useState('');
+  const [senhaErro, setSenhaErro] = useState<string | null>(null);
+  const [checandoSenha, setChecandoSenha] = useState(false);
+
+  useEffect(() => {
+    let ok = false;
+    try { ok = localStorage.getItem(VISITA_OK_KEY) === '1'; } catch {}
+    setLiberado(ok);
+  }, []);
+
+  const handleSenha = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setChecandoSenha(true);
+    setSenhaErro(null);
+    try {
+      const res = await fetch('/api/visita-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ senha })
+      });
+      if (res.ok) {
+        try { localStorage.setItem(VISITA_OK_KEY, '1'); } catch {}
+        setLiberado(true);
+      } else {
+        setSenhaErro('Senha incorreta. Esta página é de uso exclusivo do técnico da Fazendo Esporte.');
+      }
+    } catch {
+      setSenhaErro('Sem conexão. Tente novamente.');
+    } finally {
+      setChecandoSenha(false);
+    }
+  };
 
   // Quick Chips for rapid description insertion
   const quickChips = [
@@ -277,7 +318,7 @@ ${submittedVisit.description}
     return `https://wa.me/?text=${encodeURIComponent(text)}`;
   };
 
-  if (loading) {
+  if (loading || liberado === null) {
     return (
       <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 text-white">
         <div className="w-16 h-16 bg-white rounded-2xl p-1.5 shadow-xl flex items-center justify-center mb-4 animate-pulse">
@@ -306,6 +347,78 @@ ${submittedVisit.description}
         >
           Voltar para Relatórios Executivos
         </button>
+      </div>
+    );
+  }
+
+  if (!liberado) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center px-4 py-8">
+        <div className="max-w-md mx-auto w-full text-center mb-6">
+          <div className="w-14 h-14 bg-white rounded-2xl p-1.5 shadow-lg shadow-purple-500/20 mx-auto mb-3 flex items-center justify-center">
+            <Image src="/logo.png" alt="Logo Fazendo Esporte" width={48} height={48} className="object-contain" priority />
+          </div>
+          <div className="text-base font-black text-white tracking-wide">FAZENDO ESPORTE</div>
+          <div className="text-xs text-purple-300">SFE - Serviços Fazendo Esporte</div>
+        </div>
+
+        <div className="max-w-md mx-auto w-full">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-orange-500 to-purple-600" />
+
+            <div className="bg-purple-950/60 border border-purple-800/40 rounded-xl p-3.5 mb-5 text-left">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-purple-300 mb-1 flex items-center gap-1.5">
+                <Building2 className="w-3.5 h-3.5 text-orange-400" />
+                Visita Técnica
+              </div>
+              <div className="text-sm font-black text-white">{client.name}</div>
+            </div>
+
+            <div className="text-center mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center mx-auto mb-3">
+                <Lock className="w-6 h-6" />
+              </div>
+              <h2 className="text-base font-black text-white">Acesso Restrito ao Técnico</h2>
+              <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
+                Este QR Code é de uso exclusivo da equipe Fazendo Esporte para registrar a visita técnica. Digite a senha do técnico para continuar.
+              </p>
+            </div>
+
+            <form onSubmit={handleSenha} className="space-y-4">
+              <div>
+                <label htmlFor="senha-visita" className="block text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1.5">
+                  <KeyRound className="w-3.5 h-3.5 text-orange-400" />
+                  Senha do Técnico
+                </label>
+                <input
+                  id="senha-visita"
+                  type="password"
+                  required
+                  autoComplete="current-password"
+                  placeholder="Digite a senha..."
+                  value={senha}
+                  onChange={(e) => { setSenha(e.target.value); setSenhaErro(null); }}
+                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm font-mono text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+                />
+                {senhaErro && (
+                  <p className="text-xs text-red-400 mt-2 flex items-start gap-1.5 bg-red-950/40 p-2.5 rounded-lg border border-red-800/40">
+                    <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                    <span>{senhaErro}</span>
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={checandoSenha}
+                className="w-full bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 disabled:opacity-60 text-white font-black py-3 px-4 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-purple-600/30 transition-all cursor-pointer flex items-center justify-center gap-2"
+              >
+                <LogIn className="w-4 h-4" />
+                <span>{checandoSenha ? 'Verificando...' : 'Entrar e Registrar Visita'}</span>
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }
