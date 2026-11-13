@@ -42,6 +42,18 @@ export default function RelatoriosPage() {
   // QR Codes Map for each client visit page
   const [clientQrMap, setClientQrMap] = useState<Record<string, string>>({});
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [senhaVisita, setSenhaVisita] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase.auth.getSession();
+      const token = data.session?.access_token;
+      if (!token) return;
+      const res = await fetch('/api/visita-auth', { headers: { Authorization: `Bearer ${token}` } });
+      const json = await res.json().catch(() => ({}));
+      setSenhaVisita(json?.senha ?? null);
+    })().catch(() => {});
+  }, []);
 
   // Print Mode: 'relatorio' | 'qrcode-single' | 'qrcode-all'
   const [printMode, setPrintMode] = useState<'relatorio' | 'qrcode-single' | 'qrcode-all'>('relatorio');
@@ -443,6 +455,15 @@ export default function RelatoriosPage() {
                           </span>
                           <span className="font-mono text-purple-900 font-bold text-xs break-all">
                             https://fazendoesporte.com.br/visita/{c.slug}
+                          </span>
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] font-bold uppercase text-slate-400 block">
+                            Senha do Técnico:
+                          </span>
+                          <span className="font-mono bg-amber-50 text-amber-900 border border-amber-200 font-black text-sm px-2 py-0.5 rounded-lg inline-block">
+                            {senhaVisita ?? 'carregando...'}
                           </span>
                         </div>
 
