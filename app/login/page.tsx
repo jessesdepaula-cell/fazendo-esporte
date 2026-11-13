@@ -195,13 +195,8 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* CREDENTIALS INFO BOX */}
           <div className="mt-6 pt-5 border-t border-slate-800 text-center">
-            <p className="text-[11px] text-slate-400">
-              Usuário cadastrado:{' '}
-              <span className="font-mono text-purple-300 font-bold">Fazendoesporte2022@gmail.com</span>
-            </p>
-            <p className="text-[10px] text-slate-500 mt-1">
+            <p className="text-[10px] text-slate-500">
               SFE - Serviços Fazendo Esporte
             </p>
           </div>
