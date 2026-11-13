@@ -8,8 +8,8 @@ import { Lock, Mail, Eye, EyeOff, ArrowRight, ShieldCheck, Wrench, AlertCircle, 
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('Fazendoesporte2022@gmail.com');
-  const [password, setPassword] = useState('@Leandro951');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -58,12 +58,6 @@ export default function LoginPage() {
       setErrorMsg('Falha na conexão com o servidor de autenticação. Tente novamente.');
       setLoading(false);
     }
-  }
-
-  function fillLeandroCredentials() {
-    setEmail('Fazendoesporte2022@gmail.com');
-    setPassword('@Leandro951');
-    setErrorMsg(null);
   }
 
   return (
@@ -175,15 +169,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* QUICK PRE-FILL ACTION */}
-            <div className="pt-1 flex items-center justify-between text-xs">
-              <button
-                type="button"
-                onClick={fillLeandroCredentials}
-                className="text-[11px] text-orange-400 hover:text-orange-300 underline font-medium"
-              >
-                Preencher credenciais do Leandro
-              </button>
+            <div className="pt-1 flex items-center justify-end text-xs">
               <span className="text-[11px] text-slate-500">
                 Sessão segura 24h
               </span>
